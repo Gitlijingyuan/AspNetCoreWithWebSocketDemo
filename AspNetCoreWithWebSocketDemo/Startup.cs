@@ -41,7 +41,7 @@ namespace AspNetCoreWithWebSocketDemo
             app.UseStaticFiles();
 
             app.UseWebSockets();
-            app.UseMiddleware<ChatWebSocketMiddleware>();
+            //app.UseMiddleware<ChatWebSocketMiddleware>();
 
             //务必在mvc中间件之前进行配置。
             //app.UseWebSockets();
