@@ -34,7 +34,9 @@ namespace ChatWebSocketMiddleware
             CancellationToken ct = context.RequestAborted;
             var currentSocket = await context.WebSockets.AcceptWebSocketAsync();
             //string socketId = Guid.NewGuid().ToString();
-            string socketId = context.Request.Query["sid"].ToString();
+            System.Security.Principal.WindowsIdentity currentUser = System.Security.Principal.WindowsIdentity.GetCurrent();
+            string socketId = currentUser.User.ToString();
+
             if (!_sockets.ContainsKey(socketId))
             {
                 _sockets.TryAdd(socketId, currentSocket);
