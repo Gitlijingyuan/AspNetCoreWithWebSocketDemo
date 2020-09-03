@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreWithWebSocketDemo", "AspNetCoreWithWebSocketDemo\AspNetCoreWithWebSocketDemo.csproj", "{D247D161-244E-4D5D-906D-C1E2F3A930AD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatWebSocketMiddleware", "ChatWebSocketMiddleware\ChatWebSocketMiddleware.csproj", "{70EEE155-C4EE-451A-8B4C-A630D16783A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreWithWebSocketDemoNew", "AspNetCoreWithWebSocketDemoNew\AspNetCoreWithWebSocketDemoNew.csproj", "{68E756C4-3D48-454B-A252-BF886BAEE3A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D247D161-244E-4D5D-906D-C1E2F3A930AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D247D161-244E-4D5D-906D-C1E2F3A930AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D247D161-244E-4D5D-906D-C1E2F3A930AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D247D161-244E-4D5D-906D-C1E2F3A930AD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{70EEE155-C4EE-451A-8B4C-A630D16783A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{70EEE155-C4EE-451A-8B4C-A630D16783A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{70EEE155-C4EE-451A-8B4C-A630D16783A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{70EEE155-C4EE-451A-8B4C-A630D16783A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68E756C4-3D48-454B-A252-BF886BAEE3A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68E756C4-3D48-454B-A252-BF886BAEE3A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68E756C4-3D48-454B-A252-BF886BAEE3A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68E756C4-3D48-454B-A252-BF886BAEE3A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
