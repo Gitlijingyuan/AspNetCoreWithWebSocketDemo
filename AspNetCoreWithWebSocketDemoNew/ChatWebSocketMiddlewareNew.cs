@@ -30,6 +30,7 @@ namespace AspNetCoreWithWebSocketDemoNew
     {
         public WebSocket WebSocket { get; set; }
         public string Username { get; set; }
+        public string UseSid { get; set; }
     }
 
     public class CustomWebSocketManager
@@ -59,8 +60,8 @@ namespace AspNetCoreWithWebSocketDemoNew
                 {
 
                     System.Security.Principal.WindowsIdentity currentUser = System.Security.Principal.WindowsIdentity.GetCurrent();
-                    string username = currentUser.User.ToString();
-                    //string username = context.Request.Query["u"];
+                    string usesid = currentUser.User.ToString();
+                    string username = context.Request.Query["username"];
 
                     if (!string.IsNullOrEmpty(username))
                     {
@@ -68,7 +69,8 @@ namespace AspNetCoreWithWebSocketDemoNew
                         CustomWebSocket userWebSocket = new CustomWebSocket()
                         {
                             WebSocket = webSocket,
-                            Username = username
+                            Username = username,
+                            UseSid = usesid
                         };
                         wsFactory.Add(userWebSocket);
                         await wsmHandler.SendInitialMessages(userWebSocket);

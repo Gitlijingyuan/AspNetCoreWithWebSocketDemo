@@ -13,7 +13,7 @@ namespace AspNetCoreWithWebSocketDemoNew
         void Add(CustomWebSocket uws);
         void Remove(string username);
         List<CustomWebSocket> All();
-        List<CustomWebSocket> Others(CustomWebSocket client);
+        List<CustomWebSocket> Others(string username);
         CustomWebSocket Client(string username);
     }
 
@@ -57,9 +57,9 @@ namespace AspNetCoreWithWebSocketDemoNew
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        public List<CustomWebSocket> Others(CustomWebSocket client)
+        public List<CustomWebSocket> Others(string username)
         {
-            return List.Where(c => c.Username == client.Username).ToList();
+            return List.Where(c => c.Username == username).ToList();
         }
 
         /// <summary>

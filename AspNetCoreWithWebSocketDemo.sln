@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreWithWebSocketDemoNew", "AspNetCoreWithWebSocketDemoNew\AspNetCoreWithWebSocketDemoNew.csproj", "{68E756C4-3D48-454B-A252-BF886BAEE3A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreWithWebSocketDemoNew", "AspNetCoreWithWebSocketDemoNew\AspNetCoreWithWebSocketDemoNew.csproj", "{68E756C4-3D48-454B-A252-BF886BAEE3A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelperAspNet", "HelperAspNet\HelperAspNet.csproj", "{7C0D39B7-F407-4CBB-8F79-9D8337271A3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{68E756C4-3D48-454B-A252-BF886BAEE3A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68E756C4-3D48-454B-A252-BF886BAEE3A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68E756C4-3D48-454B-A252-BF886BAEE3A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C0D39B7-F407-4CBB-8F79-9D8337271A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C0D39B7-F407-4CBB-8F79-9D8337271A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C0D39B7-F407-4CBB-8F79-9D8337271A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C0D39B7-F407-4CBB-8F79-9D8337271A3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

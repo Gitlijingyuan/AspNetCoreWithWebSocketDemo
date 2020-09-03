@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HelperAspNet;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace AspNetCoreWithWebSocketDemoNew
     {
         Task SendInitialMessages(CustomWebSocket userWebSocket);
         Task HandleMessage(WebSocketReceiveResult result, byte[] buffer, CustomWebSocket userWebSocket, ICustomWebSocketFactory wsFactory);
-        Task BroadcastOthers(byte[] buffer, CustomWebSocket userWebSocket, ICustomWebSocketFactory wsFactory);
+        Task BroadcastOthers(byte[] buffer, string username, ICustomWebSocketFactory wsFactory);
         Task BroadcastAll(byte[] buffer, CustomWebSocket userWebSocket, ICustomWebSocketFactory wsFactory);
     }
     public enum WSMessageType
@@ -59,10 +60,12 @@ namespace AspNetCoreWithWebSocketDemoNew
             string msg = Encoding.ASCII.GetString(buffer);
             try
             {
-                var message = JsonConvert.DeserializeObject<CustomWebSocketMessage>(msg);
+                //var message = JsonConvert.DeserializeObject<CustomWebSocketMessage>(msg);
+                String JSON = msg.Replace("\0", "");
+                CustomWebSocketMessage message = JSON.ConvertToObject<CustomWebSocketMessage>();
                 if (message.Type == WSMessageType.发送)
                 {
-                    await BroadcastOthers(buffer, userWebSocket, wsFactory);
+                    await BroadcastOthers(buffer, message.Username, wsFactory);
                 }
             }
             catch (Exception e)
@@ -78,13 +81,18 @@ namespace AspNetCoreWithWebSocketDemoNew
         /// <param name="userWebSocket"></param>
         /// <param name="wsFactory"></param>
         /// <returns></returns>
-        public async Task BroadcastOthers(byte[] buffer, CustomWebSocket userWebSocket, ICustomWebSocketFactory wsFactory)
+        public async Task BroadcastOthers(byte[] buffer, string username, ICustomWebSocketFactory wsFactory)
         {
-            var others = wsFactory.Others(userWebSocket);
+            var others = wsFactory.Others(username);
             foreach (var uws in others)
             {
                 await uws.WebSocket.SendAsync(new ArraySegment<byte>(buffer, 0, buffer.Length), WebSocketMessageType.Text, true, CancellationToken.None);
             }
+
+            //var others = wsFactory.Client(userWebSocket.Username);
+
+            //await others.WebSocket.SendAsync(new ArraySegment<byte>(buffer, 0, buffer.Length), WebSocketMessageType.Text, true, CancellationToken.None);
+
         }
 
         /// <summary>
