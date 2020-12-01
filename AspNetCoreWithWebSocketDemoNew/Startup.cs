@@ -25,6 +25,7 @@ namespace AspNetCoreWithWebSocketDemoNew
         {
             services.AddRazorPages();
             services.AddSingleton<ICustomWebSocketFactory, CustomWebSocketFactory>();
+            services.AddSingleton<IAutomaticPostingFactory, AutomaticPostingFactory>();
             services.AddSingleton<ICustomWebSocketMessageHandler, CustomWebSocketMessageHandler>();
         }
 
@@ -62,6 +63,9 @@ namespace AspNetCoreWithWebSocketDemoNew
 
             app.UseWebSockets(webSocketOptions);
             app.UseCustomWebSocketManager();
+            //app.HeartbeatStateS();
+
+
 
         }
     }
