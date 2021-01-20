@@ -18,7 +18,12 @@ namespace AspNetCoreWithWebSocketDemoNew
         public enum UserType
         {
             过账客户端 = 100,
-            过账数据端 = 200
+            过账数据端 = 200,
+            过账数据添加端 = 210,
+            过账数据删除端 = 220,
+            吊挂工艺数据 = 300,
+            吊挂模板数据 = 350
+
         }
     }
 }

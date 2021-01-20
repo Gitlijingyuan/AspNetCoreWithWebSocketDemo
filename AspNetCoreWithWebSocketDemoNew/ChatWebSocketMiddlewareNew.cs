@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.WebSockets;
 using Microsoft.AspNetCore.Http.Extensions;
 using static AspNetCoreWithWebSocketDemoNew.EnumModel;
+using HelperAspNet;
+using log4net;
 
 namespace AspNetCoreWithWebSocketDemoNew
 {
@@ -25,6 +27,11 @@ namespace AspNetCoreWithWebSocketDemoNew
         {
             return app.UseMiddleware<HeartbeatStateS>();
         }
+        public static IApplicationBuilder AutomaticPostingApp(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<AutomaticPostingApp>();
+        }
+
     }
 
     #endregion
@@ -54,6 +61,7 @@ namespace AspNetCoreWithWebSocketDemoNew
         public string Username { get; set; }
         public string UseSid { get; set; }
         public string Url { get; set; }
+        public UserType UserType { get; set; }
     }
 
     /// <summary>
@@ -97,20 +105,20 @@ namespace AspNetCoreWithWebSocketDemoNew
             if (context.Request.Path == "/MesServiceStation")
             {
 
-
+                Helperlog4.Info("新连接完成" + context.Request.Path.ToString());
                 if (context.WebSockets.IsWebSocketRequest)
                 {
 
                     System.Security.Principal.WindowsIdentity currentUser = System.Security.Principal.WindowsIdentity.GetCurrent();
                     string usesid = currentUser.User.ToString();
-                    string username = context.Request.Query["username"];
+                    string customwebsocketS = context.Request.Query["username"];
                     //string username = usesid + "------Name";
-                    if (!string.IsNullOrEmpty(username))
+                    if (!string.IsNullOrEmpty(customwebsocketS))
                     {
-                       
-                        WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
+                        CustomWebSocket customwebsocket = customwebsocketS.ConvertToObject<CustomWebSocket>();
+                         WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
                         List<CustomWebSocket> CustomWebSocketList = new List<CustomWebSocket>();
-                        CustomWebSocketList = wsFactory.Others(username);
+                        CustomWebSocketList = wsFactory.Others(customwebsocket.Username);
                         if (CustomWebSocketList.Count > 0)
                         {
                             CustomWebSocket userWebSocket1 = new CustomWebSocket();
@@ -119,12 +127,15 @@ namespace AspNetCoreWithWebSocketDemoNew
                             CustomWebSocket userWebSocket = new CustomWebSocket()
                             {
                                 WebSocket = webSocket,
-                                Username = username,
+                                Username = userWebSocket1.Username,
                                 UseSid = usesid,
-                                Url= context.Request.GetDisplayUrl()
+                                Url= context.Request.GetDisplayUrl(),
+                                UserType = userWebSocket1.UserType
+
                             };
                             wsFactory.Add(userWebSocket);
                             //await Heartbeat(wsFactory, wsmHandler);
+                            Helperlog4.Info("重新连接返回值" + userWebSocket.ConvertToJson());
                             await wsmHandler.SendInitialMessages(userWebSocket);
                             await Listen(context, userWebSocket, wsFactory, wsmHandler, apFactory);
                         
@@ -134,11 +145,14 @@ namespace AspNetCoreWithWebSocketDemoNew
                             CustomWebSocket userWebSocket = new CustomWebSocket()
                             {
                                 WebSocket = webSocket,
-                                Username = username,
+                                Username = customwebsocket.Username,
                                 UseSid = usesid,
-                                Url = context.Request.GetDisplayUrl()
+                                Url = context.Request.GetDisplayUrl(),
+                                UserType = customwebsocket.UserType
                             };
                             wsFactory.Add(userWebSocket);
+
+                            Helperlog4.Info("新连接返回值" + userWebSocket.ConvertToJson());
                             //await Heartbeat(wsFactory, wsmHandler);
                             await wsmHandler.SendInitialMessages(userWebSocket);
                             await Listen(context, userWebSocket, wsFactory, wsmHandler, apFactory);
@@ -178,6 +192,7 @@ namespace AspNetCoreWithWebSocketDemoNew
                 result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             }
             wsFactory.Remove(userWebSocket.Username);
+            Helperlog4.Info("删除连接值" + userWebSocket.Username);
             await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
         }
 
@@ -257,6 +272,34 @@ namespace AspNetCoreWithWebSocketDemoNew
         #endregion
 
     }
+
+    #endregion
+
+    #region 过账数据初始化
+
+    /// <summary>
+    /// 过账数据初始化
+    /// </summary>
+    public class AutomaticPostingApp
+    {
+
+        #region 过账数据初始化
+        //public async Task Invoke(IAutomaticPostingFactory apFactory)
+        //{
+        //    string Text = HelperAspNet.Http.HttpGet("http://172.16.1.34:7777/api/GetAutomaticPosting/GetAutomaticPostingAPI");
+
+        //    List<AutomaticPosting> AutomaticPostingList = new List<AutomaticPosting>();
+        //    AutomaticPostingList = Text.ConvertToList<AutomaticPosting>();
+        //    foreach (AutomaticPosting item in AutomaticPostingList)
+        //    {
+        //        apFactory.AutomaticPostingAdd(item);
+        //    }
+        //}
+
+
+    #endregion
+
+}
 
     #endregion
 
